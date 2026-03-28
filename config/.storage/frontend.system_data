@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.system_data",
+  "data": {
+    "core": {
+      "onboarded_version": "2026.3.4",
+      "onboarded_date": "2026-03-27T19:50:40.001Z"
+    },
+    "home": {
+      "favorite_entities": [
+        "camera.hawaii_ocean_water_quality_oahu_map"
+      ]
+    }
+  }
+}

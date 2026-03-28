@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "minor_version": 12,
+  "key": "core.device_registry",
+  "data": {
+    "devices": [
+      {"area_id":null,"config_entries":["01KMRDGJTKPHQTHQE36GSN8CG2"],"config_entries_subentries":{"01KMRDGJTKPHQTHQE36GSN8CG2":[null]},"configuration_url":null,"connections":[],"created_at":"2026-03-27T19:49:34.677365+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"abf115c92b908bf5da30a4fb0705f716","identifiers":[["sun","01KMRDGJTKPHQTHQE36GSN8CG2"]],"labels":[],"manufacturer":null,"model":null,"model_id":null,"modified_at":"2026-03-27T19:49:34.677384+00:00","name_by_user":null,"name":"Sun","primary_config_entry":"01KMRDGJTKPHQTHQE36GSN8CG2","serial_number":null,"sw_version":null,"via_device_id":null},
+      {"area_id":null,"config_entries":["01KMRDGKQGXFFPC43HJCV7KRYH"],"config_entries_subentries":{"01KMRDGKQGXFFPC43HJCV7KRYH":[null]},"configuration_url":"homeassistant://config/backup","connections":[],"created_at":"2026-03-27T19:49:35.612584+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"066cd90130d5583cc0a8916663e6a879","identifiers":[["backup","backup_manager"]],"labels":[],"manufacturer":"Home Assistant","model":"Home Assistant Backup","model_id":null,"modified_at":"2026-03-27T19:49:35.612619+00:00","name_by_user":null,"name":"Backup","primary_config_entry":"01KMRDGKQGXFFPC43HJCV7KRYH","serial_number":null,"sw_version":"2026.3.4","via_device_id":null},
+      {"area_id":null,"config_entries":["01KMRDJFJW80APT5ZMXA93TFX0"],"config_entries_subentries":{"01KMRDJFJW80APT5ZMXA93TFX0":[null]},"configuration_url":null,"connections":[],"created_at":"2026-03-27T19:50:36.897930+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"60444d09733566f8d12fcb09173dbab1","identifiers":[["google_translate","01KMRDJFJW80APT5ZMXA93TFX0"]],"labels":[],"manufacturer":"Google","model":"Google Translate TTS","model_id":null,"modified_at":"2026-03-27T19:50:36.897945+00:00","name_by_user":null,"name":"Google Translate en com","primary_config_entry":"01KMRDJFJW80APT5ZMXA93TFX0","serial_number":null,"sw_version":null,"via_device_id":null},
+      {"area_id":null,"config_entries":["01KMRDJFJTX2XPTFNFP402PJTX"],"config_entries_subentries":{"01KMRDJFJTX2XPTFNFP402PJTX":[null]},"configuration_url":"https://www.met.no/en","connections":[],"created_at":"2026-03-27T19:50:37.736607+00:00","disabled_by":null,"entry_type":"service","hw_version":null,"id":"c04b28935e469a561758d389d7ed8844","identifiers":[["met","01KMRDJFJTX2XPTFNFP402PJTX"]],"labels":[],"manufacturer":"Met.no","model":"Forecast","model_id":null,"modified_at":"2026-03-27T19:50:37.736642+00:00","name_by_user":null,"name":"Forecast","primary_config_entry":"01KMRDJFJTX2XPTFNFP402PJTX","serial_number":null,"sw_version":null,"via_device_id":null}
+    ],
+    "deleted_devices": []
+  }
+}

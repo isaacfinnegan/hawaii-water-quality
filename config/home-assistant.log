@@ -1,0 +1,10 @@
+2026-03-27 15:10:31.361 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2026-03-27 15:10:31.855 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-03-27 15:10:31.886 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-03-27 15:10:31.892 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-03-27 15:10:32.875 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-03-27 15:10:32.888 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-03-27 15:10:32.891 ERROR (MainThread) [homeassistant.components.homeassistant_alerts.coordinator] Error requesting homeassistant_alerts data: Cannot connect to host alerts.home-assistant.io:443 ssl:default [Network unreachable]
+2026-03-27 15:10:32.891 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-03-27 15:10:43.329 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-03-27 15:11:03.644 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
