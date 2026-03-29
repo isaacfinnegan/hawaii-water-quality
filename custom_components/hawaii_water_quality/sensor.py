@@ -63,24 +63,27 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
     def native_value(self) -> int:
         """Return the state of the sensor (count of active areas)."""
         if self.island_id == "All":
-            return len(self.coordinator.data["all_active_areas"])
+            return len(self.coordinator.data.get("all_active_areas", []))
         
-        island_data = self.coordinator.data["islands"].get(self.island_id, {})
+        island_data = self.coordinator.data.get("islands", {}).get(self.island_id, {})
         return len(island_data.get("active_areas", []))
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state attributes."""
         if self.island_id == "All":
-            events = self.coordinator.data["all_active"]
-            active_areas = self.coordinator.data["all_active_areas"]
+            events = self.coordinator.data.get("all_active", [])
+            active_areas = self.coordinator.data.get("all_active_areas", [])
+            geojson = self.coordinator.data.get("all_geojson", {"type": "FeatureCollection", "features": []})
         else:
-            island_data = self.coordinator.data["islands"].get(self.island_id, {})
+            island_data = self.coordinator.data.get("islands", {}).get(self.island_id, {})
             events = island_data.get("events", [])
             active_areas = island_data.get("active_areas", [])
-            
+            geojson = island_data.get("geojson", {"type": "FeatureCollection", "features": []})
+
         return {
             "active_areas": active_areas,
+            "geojson": geojson,
             "advisories": [
                 {
                     "title": event.get("title"),

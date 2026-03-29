@@ -1,0 +1,36 @@
+# Hawaii Ocean Water Quality
+
+A Home Assistant custom component that tracks water quality advisories from the Hawaii Department of Health (DOH), provides high-resolution OpenStreetMap (OSM) maps, and lists active advisory areas per island.
+
+## Features
+- **Active Areas Tracking**: Replaces simple advisory counts with a per-island "Active Areas" sensor, showing distinct areas under advisory.
+- **Detailed Attributes**: Provides a list of specific beach/area names (`active_areas`) for each island.
+- **High-Resolution Mapping**: Utilizes high-resolution OpenStreetMap backgrounds with precise bounding boxes and a projection system for accurate alignment of DOH API coordinates.
+- **Robust Integration**: Built with `config_flow`, `DataUpdateCoordinator`, and `async_setup_entry` for a modern, reliable integration pattern.
+
+## Development Environment
+
+The project provides a Docker Compose setup for easy development and testing.
+
+### Prerequisites
+- Docker and Docker Compose installed.
+
+### Starting the Environment
+Run the following command in the root of the repository to start the development container in the background:
+
+```bash
+docker-compose up -d
+```
+
+### Testing the Integration
+Once the container is running, access the Home Assistant testing instance:
+
+- **URL**: `http://localhost:8123`
+- **Username**: `test`
+- **Password**: `test`
+
+You can manually test the high-res maps, list sensors, and verify the integration's behavior.
+
+## Next Steps
+- **User Verification**: Allow manual testing of the new high-res maps and list sensors.
+- **Refine Bounding Boxes**: Further tune island bounds if the map centering needs adjustment.

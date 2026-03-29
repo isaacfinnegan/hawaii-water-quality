@@ -123,9 +123,27 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     active.append(e)
         return active
 
+    def _wkt_to_geojson(self, wkt: str) -> dict[str, Any] | None:
+        """Convert a WKT-like string to GeoJSON geometry."""
+        coords = re.findall(r"(-?\d+\.\d+)\s+(-?\d+\.\d+)", wkt)
+        if not coords:
+            return None
+        
+        points = [[float(c[0]), float(c[1])] for c in coords]
+        
+        if "POLYGON" in wkt.upper():
+            return {"type": "Polygon", "coordinates": [points]}
+        if "LINESTRING" in wkt.upper():
+            return {"type": "LineString", "coordinates": points}
+        if "POINT" in wkt.upper():
+            return {"type": "Point", "coordinates": points[0]}
+        
+        return None
+
     def _process_data(self, events):
         """Process the raw API data."""
         islands = {}
+        all_features = []
         all_advisories = []
 
         for event in events:
@@ -134,7 +152,8 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                 islands[island_name] = {
                     "events": [],
                     "active_areas": set(),
-                    "advisories": []
+                    "advisories": [],
+                    "features": []
                 }
             
             islands[island_name]["events"].append(event)
@@ -158,35 +177,55 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
             for name in area_names:
                 islands[island_name]["active_areas"].add(name)
 
-            # 2. Extract Geometries and calculate centroids for Geo-Location
+            # 2. Extract Geometries and generate GeoJSON
             for loc in locations:
-                geom = loc.get("geometry", "")
-                if not geom:
+                geom_wkt = loc.get("geometry", "")
+                if not geom_wkt:
                     continue
                 
-                coords = re.findall(r"(-?\d+\.\d+)\s+(-?\d+\.\d+)", geom)
-                if not coords:
+                geojson_geom = self._wkt_to_geojson(geom_wkt)
+                if not geojson_geom:
                     continue
                 
-                # Calculate centroid (average)
-                lons = [float(c[0]) for c in coords]
-                lats = [float(c[1]) for c in coords]
-                avg_lon = sum(lons) / len(lons)
-                avg_lat = sum(lats) / len(lats)
+                # Calculate centroid for legacy geo_location support
+                coords = geojson_geom["coordinates"]
+                if geojson_geom["type"] == "Polygon":
+                    raw_coords = coords[0]
+                elif geojson_geom["type"] == "LineString":
+                    raw_coords = coords
+                else: # Point
+                    raw_coords = [coords]
+                
+                avg_lon = sum(c[0] for c in raw_coords) / len(raw_coords)
+                avg_lat = sum(c[1] for c in raw_coords) / len(raw_coords)
 
-                advisory_obj = {
-                    "id": f"{event.get('id')}_{loc.get('id') or 0}",
-                    "event_id": event.get("id"),
+                properties = {
                     "name": loc.get("name") or (list(area_names)[0] if area_names else "Unknown"),
-                    "latitude": avg_lat,
-                    "longitude": avg_lon,
-                    "geometry": geom,
                     "type": event.get("type"),
                     "status": event.get("status"),
                     "island": island_name,
-                    "posted_date": event.get("postedDate")
+                    "posted_date": event.get("postedDate"),
+                    "event_id": event.get("id"),
+                    "color": "#8B4513" # SaddleBrown
                 }
+
+                feature = {
+                    "type": "Feature",
+                    "geometry": geojson_geom,
+                    "properties": properties
+                }
+
+                advisory_obj = {
+                    "id": f"{event.get('id')}_{loc.get('id') or 0}",
+                    "latitude": avg_lat,
+                    "longitude": avg_lon,
+                    "geometry": geojson_geom,
+                    **properties
+                }
+
+                islands[island_name]["features"].append(feature)
                 islands[island_name]["advisories"].append(advisory_obj)
+                all_features.append(feature)
                 all_advisories.append(advisory_obj)
 
         processed_islands = {}
@@ -195,13 +234,15 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
             processed_islands[island_name] = {
                 "events": data["events"],
                 "active_areas": sorted(list(data["active_areas"])),
-                "advisories": data["advisories"]
+                "advisories": data["advisories"],
+                "geojson": {"type": "FeatureCollection", "features": data["features"]}
             }
             all_active_areas.update(data["active_areas"])
 
         return {
             "all_active": events,
             "all_active_areas": sorted(list(all_active_areas)),
+            "all_geojson": {"type": "FeatureCollection", "features": all_features},
             "all_advisories": all_advisories,
             "islands": processed_islands,
         }
