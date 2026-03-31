@@ -7,6 +7,7 @@ import logging
 from homeassistant.components.geo_location import GeolocationEvent
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -24,6 +25,9 @@ async def async_setup_entry(
     coordinator: HawaiiWaterQualityDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
     island_id = entry.data.get(CONF_ISLAND, "All")
 
+    # Track entities by their unique ID
+    current_entities: dict[str, HawaiiWaterQualityGeolocationEvent] = {}
+
     @callback
     def update_entities():
         """Update geo-location entities based on coordinator data."""
@@ -35,14 +39,33 @@ async def async_setup_entry(
 
         _LOGGER.debug("Updating geo_location entities: %s found", len(advisories))
         
-        new_entities = []
-        for advisory in advisories:
-            # For now, we'll just create them on every refresh to be simple
-            # Home Assistant handles duplicate unique_ids by ignoring them
-            new_entities.append(HawaiiWaterQualityGeolocationEvent(coordinator, advisory))
+        new_advisories = []
+        active_ids = set()
 
-        if new_entities:
-            async_add_entities(new_entities)
+        for advisory in advisories:
+            entity_id = f"{DOMAIN}_{advisory['id']}"
+            active_ids.add(entity_id)
+
+            if entity_id not in current_entities:
+                # New advisory, create entity
+                _LOGGER.debug("Adding new geo_location entity: %s", entity_id)
+                entity = HawaiiWaterQualityGeolocationEvent(coordinator, advisory)
+                current_entities[entity_id] = entity
+                new_advisories.append(entity)
+            else:
+                # Existing advisory, update if needed
+                _LOGGER.debug("Updating existing geo_location entity: %s", entity_id)
+                current_entities[entity_id].update_advisory(advisory)
+
+        # Remove entities that are no longer active
+        to_remove = [eid for eid in current_entities if eid not in active_ids]
+        for eid in to_remove:
+            _LOGGER.debug("Removing geo_location entity: %s", eid)
+            hass.async_create_task(current_entities[eid].async_remove())
+            del current_entities[eid]
+
+        if new_advisories:
+            async_add_entities(new_advisories)
 
     # Register listener
     entry.async_on_unload(coordinator.async_add_listener(update_entities))
@@ -73,6 +96,24 @@ class HawaiiWaterQualityGeolocationEvent(CoordinatorEntity, GeolocationEvent):
         self._attr_source = DOMAIN
 
     @property
+    def device_info(self) -> DeviceInfo:
+        """Return device information."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, self.coordinator.entry.entry_id)},
+            name=f"{NAME}",
+            manufacturer="Hawaii DOH",
+            model="Water Quality Integration",
+        )
+
+    @callback
+    def update_advisory(self, advisory: dict[str, Any]) -> None:
+        """Update the advisory data."""
+        self._advisory = advisory
+        self._attr_latitude = advisory["latitude"]
+        self._attr_longitude = advisory["longitude"]
+        self.async_write_ha_state()
+
+    @property
     def source(self) -> str:
         """Return the source of the event."""
         return DOMAIN
@@ -87,5 +128,5 @@ class HawaiiWaterQualityGeolocationEvent(CoordinatorEntity, GeolocationEvent):
             "island": self._advisory["island"],
             "posted_date": self._advisory["posted_date"],
             "geometry": self._advisory["geometry"],
-            "rgb_color": [139, 69, 19], # SaddleBrown
+            "rgb_color": [205, 133, 63], # Peru (CD 85 3F)
         }

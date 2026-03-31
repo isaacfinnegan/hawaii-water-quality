@@ -15,7 +15,15 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN, CONF_RECENT_HOURS, DEFAULT_RECENT_HOURS
+from .const import (
+    DOMAIN, 
+    CONF_RECENT_HOURS, 
+    DEFAULT_RECENT_HOURS, 
+    CONF_OFFSET_LON, 
+    CONF_OFFSET_LAT,
+    DEFAULT_OFFSET_LON,
+    DEFAULT_OFFSET_LAT
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -66,16 +74,26 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     data = await response.json()
                 
                 events = data.get("list", [])
+                _LOGGER.debug("Fetched %s events from API", len(events))
                 active_events = self._filter_recent_events(events, cutoff_time)
+                _LOGGER.debug("Found %s active/recent events", len(active_events))
+
+                sem = asyncio.Semaphore(1) # Fetch one-by-one
 
                 async def fetch_details(event):
                     event_id = event.get("id")
-                    try:
-                        async with session.get(f"{API_URL_EVENT_DETAILS}{event_id}", headers=headers, timeout=10) as resp:
-                            if resp.status == 200:
-                                return await resp.json()
-                    except Exception:
-                        pass
+                    async with sem:
+                        try:
+                            # Cooldown between requests to avoid rate limiting
+                            await asyncio.sleep(0.5)
+                            async with session.get(f"{API_URL_EVENT_DETAILS}{event_id}", headers=headers, timeout=25) as resp:
+                                if resp.status == 200:
+                                    res_data = await resp.json()
+                                    _LOGGER.debug("Fetched details for event %s: %s locations", event_id, len(res_data.get("locations", [])))
+                                    return res_data
+                                _LOGGER.warning("Failed to fetch details for event %s: Status %s", event_id, resp.status)
+                        except Exception as e:
+                            _LOGGER.warning("Error fetching details for event %s: %s", event_id, e)
                     return event
 
                 detailed_events = await asyncio.gather(*[fetch_details(e) for e in active_events])
@@ -123,13 +141,14 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     active.append(e)
         return active
 
-    def _wkt_to_geojson(self, wkt: str) -> dict[str, Any] | None:
+    def _wkt_to_geojson(self, wkt: str, offset_lon: float, offset_lat: float) -> dict[str, Any] | None:
         """Convert a WKT-like string to GeoJSON geometry."""
         coords = re.findall(r"(-?\d+\.\d+)\s+(-?\d+\.\d+)", wkt)
         if not coords:
             return None
         
-        points = [[float(c[0]), float(c[1])] for c in coords]
+        # Apply configurable offset
+        points = [[float(c[0]) + offset_lon, float(c[1]) + offset_lat] for c in coords]
         
         if "POLYGON" in wkt.upper():
             return {"type": "Polygon", "coordinates": [points]}
@@ -145,6 +164,19 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
         islands = {}
         all_features = []
         all_advisories = []
+        
+        offset_lon = self.entry.options.get(CONF_OFFSET_LON, self.entry.data.get(CONF_OFFSET_LON, DEFAULT_OFFSET_LON))
+        offset_lat = self.entry.options.get(CONF_OFFSET_LAT, self.entry.data.get(CONF_OFFSET_LAT, DEFAULT_OFFSET_LAT))
+
+        # Island Centers for Fallback Markers
+        island_centers = {
+            "Oahu": (-158.0001, 21.4389),
+            "Maui": (-156.3319, 20.7984),
+            "Hawaii": (-155.5230, 19.5667),
+            "Kauai": (-159.5261, 22.0964),
+            "Molokai": (-157.0226, 21.1344),
+            "Lanai": (-156.9273, 20.8166),
+        }
 
         for event in events:
             island_name = event.get("island", {}).get("cleanName", "Unknown")
@@ -178,15 +210,17 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                 islands[island_name]["active_areas"].add(name)
 
             # 2. Extract Geometries and generate GeoJSON
+            has_geometry = False
             for loc in locations:
                 geom_wkt = loc.get("geometry", "")
                 if not geom_wkt:
                     continue
                 
-                geojson_geom = self._wkt_to_geojson(geom_wkt)
+                geojson_geom = self._wkt_to_geojson(geom_wkt, offset_lon, offset_lat)
                 if not geojson_geom:
                     continue
                 
+                has_geometry = True
                 # Calculate centroid for legacy geo_location support
                 coords = geojson_geom["coordinates"]
                 if geojson_geom["type"] == "Polygon":
@@ -206,7 +240,7 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     "island": island_name,
                     "posted_date": event.get("postedDate"),
                     "event_id": event.get("id"),
-                    "color": "#8B4513" # SaddleBrown
+                    "color": "#CD853F" # Peru
                 }
 
                 feature = {
@@ -223,6 +257,32 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     **properties
                 }
 
+                islands[island_name]["features"].append(feature)
+                islands[island_name]["advisories"].append(advisory_obj)
+                all_features.append(feature)
+                all_advisories.append(advisory_obj)
+
+            # Fallback point for events with no geometry (e.g. general island-wide Brown Water Advisories)
+            if not has_geometry and island_name in island_centers:
+                lon, lat = island_centers[island_name]
+                # Apply configurable offset even to fallback points for consistency
+                lon += offset_lon
+                lat += offset_lat
+                
+                geojson_geom = {"type": "Point", "coordinates": [lon, lat]}
+                properties = {
+                    "name": list(area_names)[0] if area_names else event.get("title"),
+                    "type": event.get("type"),
+                    "status": event.get("status"),
+                    "island": island_name,
+                    "posted_date": event.get("postedDate"),
+                    "event_id": event.get("id"),
+                    "color": "#CD853F",
+                    "fallback": True
+                }
+                feature = {"type": "Feature", "geometry": geojson_geom, "properties": properties}
+                advisory_obj = {"id": f"{event.get('id')}_fallback", "latitude": lat, "longitude": lon, "geometry": geojson_geom, **properties}
+                
                 islands[island_name]["features"].append(feature)
                 islands[island_name]["advisories"].append(advisory_obj)
                 all_features.append(feature)

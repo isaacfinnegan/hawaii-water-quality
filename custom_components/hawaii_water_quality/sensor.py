@@ -7,6 +7,7 @@ from typing import Any
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -58,6 +59,16 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
         self._attr_name = f"{NAME} {island_name}"
         self._attr_unique_id = f"{DOMAIN}_{island_id.lower()}_status"
         self._attr_icon = "mdi:waves"
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return device information."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, self.coordinator.entry.entry_id)},
+            name=NAME,
+            manufacturer="Hawaii DOH",
+            model="Water Quality Integration",
+        )
 
     @property
     def native_value(self) -> int:

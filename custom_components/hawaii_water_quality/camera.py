@@ -11,6 +11,7 @@ from typing import Any
 from homeassistant.components.camera import Camera
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -55,6 +56,16 @@ class HawaiiWaterQualityCamera(CoordinatorEntity, Camera):
         self._attr_unique_id = f"{DOMAIN}_{island_id.lower()}_map"
         self.content_type = "image/svg+xml"
 
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return device information."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, self.coordinator.entry.entry_id)},
+            name=NAME,
+            manufacturer="Hawaii DOH",
+            model="Water Quality Integration",
+        )
+
     def camera_image(
         self, width: int | None = None, height: int | None = None
     ) -> bytes | None:
@@ -82,16 +93,16 @@ class HawaiiWaterQualityCamera(CoordinatorEntity, Camera):
 
         map_url = f"data:image/png;base64,{encoded_image}" if encoded_image else ""
 
-        # 2. Filter events
+        # 2. Get GeoJSON Features
         if self.island_id == "All":
-            events = self.coordinator.data.get("all_active", [])
+            features = self.coordinator.data.get("all_geojson", {}).get("features", [])
         else:
             island_data = self.coordinator.data.get("islands", {}).get(self.island_id, {})
-            events = island_data.get("events", [])
+            features = island_data.get("geojson", {}).get("features", [])
 
         # Start SVG
         svg = [
-            f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {view_w} {view_h}" width="{view_w}" height="{view_h}">',
+            f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {view_w} {view_h}" width="100%" height="100%">',
             '<!-- Solid White Background -->',
             f'<rect x="0" y="0" width="{view_w}" height="{view_h}" fill="white" />',
             '<!-- Base Map Background -->',
@@ -117,45 +128,46 @@ class HawaiiWaterQualityCamera(CoordinatorEntity, Camera):
             return x, y
 
         # Colors
-        highlight_fill = "#D2B48C" # Lighter brown (Tan)
-        highlight_stroke = "#8B4513" # Darker brown (SaddleBrown)
+        highlight_fill = "#D2B48C" # Tan
+        highlight_stroke = "#CD853F" # Peru
 
-        # Draw geometries
-        for event in events:
-            for loc in event.get("locations", []):
-                geom = loc.get("geometry", "")
-                if not geom:
-                    continue
-                
-                coords = re.findall(r"(-?\d+\.\d+)\s+(-?\d+\.\d+)", geom)
-                if not coords:
-                    continue
+        # Draw geometries from GeoJSON
+        for feature in features:
+            geom = feature.get("geometry", {})
+            props = feature.get("properties", {})
+            geom_type = geom.get("type")
+            coords = geom.get("coordinates", [])
+            title = props.get("name", "Advisory")
 
-                if "POLYGON" in geom.upper():
-                    points = []
-                    for lon_s, lat_s in coords:
-                        x, y = project(float(lon_s), float(lat_s))
+            if geom_type == "Polygon":
+                # GeoJSON Polygon coords are list of lists of [lon, lat]
+                points = []
+                # Assuming simple polygon with one outer ring
+                if coords and len(coords) > 0:
+                    for lon, lat in coords[0]:
+                        x, y = project(lon, lat)
                         points.append(f"{x},{y}")
                     poly_points = " ".join(points)
-                    svg.append(f'<polygon points="{poly_points}" fill="{highlight_fill}" fill-opacity="0.5" stroke="{highlight_stroke}" stroke-width="2">')
-                    svg.append(f'<title>{event.get("title")}</title></polygon>')
+                    svg.append(f'<polygon points="{poly_points}" fill="{highlight_fill}" fill-opacity="0.5" stroke="{highlight_stroke}" stroke-width="3">')
+                    svg.append(f'<title>{title}</title></polygon>')
                 
-                elif "LINESTRING" in geom.upper():
-                    points = []
-                    for lon_s, lat_s in coords:
-                        x, y = project(float(lon_s), float(lat_s))
-                        points.append(f"{x},{y}")
-                    poly_points = " ".join(points)
-                    svg.append(f'<polyline points="{poly_points}" fill="none" stroke="{highlight_stroke}" stroke-width="4" stroke-linecap="round">')
-                    svg.append(f'<title>{event.get("title")}</title></polyline>')
+            elif geom_type == "LineString":
+                points = []
+                for lon, lat in coords:
+                    x, y = project(lon, lat)
+                    points.append(f"{x},{y}")
+                poly_points = " ".join(points)
+                svg.append(f'<polyline points="{poly_points}" fill="none" stroke="{highlight_stroke}" stroke-width="6" stroke-linecap="round">')
+                svg.append(f'<title>{title}</title></polyline>')
                 
-                elif "POINT" in geom.upper():
-                    lon_s, lat_s = coords[0]
-                    x, y = project(float(lon_s), float(lat_s))
+            elif geom_type == "Point":
+                if len(coords) >= 2:
+                    lon, lat = coords[0], coords[1]
+                    x, y = project(lon, lat)
                     # Draw a pulse or large circle for points to make them visible
-                    svg.append(f'<circle cx="{x}" cy="{y}" r="6" fill="{highlight_stroke}" fill-opacity="0.8">')
-                    svg.append(f'<title>{event.get("title")}</title></circle>')
-                    svg.append(f'<circle cx="{x}" cy="{y}" r="12" fill="{highlight_fill}" fill-opacity="0.3" stroke="{highlight_stroke}" stroke-width="1" />')
+                    svg.append(f'<circle cx="{x}" cy="{y}" r="9" fill="{highlight_stroke}" fill-opacity="0.8">')
+                    svg.append(f'<title>{title}</title></circle>')
+                    svg.append(f'<circle cx="{x}" cy="{y}" r="18" fill="{highlight_fill}" fill-opacity="0.3" stroke="{highlight_stroke}" stroke-width="1" />')
 
         svg.append('</svg>')
         return "".join(svg)

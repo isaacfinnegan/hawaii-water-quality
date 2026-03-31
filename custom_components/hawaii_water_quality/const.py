@@ -6,6 +6,10 @@ NAME = "Hawaii Ocean Water Quality"
 CONF_ISLAND = "island"
 CONF_RECENT_HOURS = "recent_hours"
 DEFAULT_RECENT_HOURS = 48
+CONF_OFFSET_LON = "offset_lon"
+CONF_OFFSET_LAT = "offset_lat"
+DEFAULT_OFFSET_LON = -0.029
+DEFAULT_OFFSET_LAT = 0.097
 
 ISLANDS = {
     "All": "All Islands",

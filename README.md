@@ -31,6 +31,15 @@ Once the container is running, access the Home Assistant testing instance:
 
 You can manually test the high-res maps, list sensors, and verify the integration's behavior.
 
+### Coordinate Offset Adjustment
+If the advisory highlights appear offset from the map tiles:
+1. Open the **Hawaii Ocean Water Quality Map** card on your dashboard.
+2. Click on the **correct physical location** of a beach where you expect a highlight to be.
+3. A popup will appear showing the required **Lon/Lat deltas**.
+4. Go to **Settings -> Devices & Services -> Hawaii Ocean Water Quality -> Configure**.
+5. Add the reported deltas to the existing offset values and click **Submit**.
+6. The highlights will instantly realign.
+
 ## Next Steps
 - **User Verification**: Allow manual testing of the new high-res maps and list sensors.
 - **Refine Bounding Boxes**: Further tune island bounds if the map centering needs adjustment.
