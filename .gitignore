@@ -1,0 +1,24 @@
+# Home Assistant
+config/
+__pycache__/
+*.pyc
+.DS_Store
+*.svg
+debug_coords.py
+check_statuses.py
+inspect_api.py
+geocode_test.py
+geocode_test2.py
+test_geojson.py
+test_islands.py
+test_semaphore.py
+update_offsets.py
+test_camera_offset.py
+.HA_VERSION
+.ha_run.lock
+home-assistant_v2.db*
+home-assistant.log*
+.storage/
+.cloud/
+.cache/
+custom_components/hawaii_water_quality/__pycache__/

@@ -1,0 +1,7 @@
+{
+  "name": "Hawaii Ocean Water Quality",
+  "render_readme": true,
+  "category": "integration",
+  "homeassistant": "2023.1.0",
+  "iot_class": "cloud_polling"
+}
