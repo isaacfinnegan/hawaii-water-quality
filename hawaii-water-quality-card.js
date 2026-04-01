@@ -1,4 +1,4 @@
-console.log("Hawaii Water Quality Card: v2.1.0 Loading...");
+console.log("Hawaii Water Quality Card: v2.1.1 Loading...");
 
 const ISLAND_DEFAULTS = {
     "oahu": { default_lat: 21.4389, default_lon: -158.0001, default_zoom: 10 },
@@ -58,7 +58,6 @@ class HawaiiWaterQualityCardEditor extends HTMLElement {
       const newConfig = ev.detail.value;
       const oldEntity = this._config?.entity;
       
-      // Auto-populate defaults if entity changes
       if (newConfig.entity && newConfig.entity !== oldEntity) {
           const entityId = newConfig.entity.toLowerCase();
           let islandKey = "all";
@@ -82,8 +81,8 @@ class HawaiiWaterQualityCardEditor extends HTMLElement {
   }
 }
 
-if (!customElements.get('custom-hawaii-water-quality-card-editor')) {
-    customElements.define('custom-hawaii-water-quality-card-editor', HawaiiWaterQualityCardEditor);
+if (!customElements.get('hawaii-water-quality-card-editor')) {
+    customElements.define('hawaii-water-quality-card-editor', HawaiiWaterQualityCardEditor);
 }
 
 // 2. Main Card Class
@@ -202,7 +201,7 @@ class HawaiiWaterQualityCard extends HTMLElement {
   }
 
   static getConfigElement() {
-    return document.createElement("custom-hawaii-water-quality-card-editor");
+    return document.createElement("hawaii-water-quality-card-editor");
   }
 
   static getStubConfig(hass, entities, entitiesFallback) {
@@ -213,13 +212,13 @@ class HawaiiWaterQualityCard extends HTMLElement {
   getCardSize() { return 4; }
 }
 
-if (!customElements.get('custom-hawaii-water-quality-card')) {
-    customElements.define('custom-hawaii-water-quality-card', HawaiiWaterQualityCard);
+if (!customElements.get('hawaii-water-quality-card')) {
+    customElements.define('hawaii-water-quality-card', HawaiiWaterQualityCard);
 }
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: "custom-hawaii-water-quality-card",
+  type: "hawaii-water-quality-card",
   name: "Hawaii Water Quality Map",
   preview: true,
   description: "Manual configuration map card."
