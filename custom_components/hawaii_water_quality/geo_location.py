@@ -68,6 +68,19 @@ async def async_setup_entry(
             hass.async_create_task(current_entities[eid].async_remove())
             del current_entities[eid]
 
+        # Also clean up the entity registry for this domain and entry
+        from homeassistant.helpers import entity_registry as er
+        registry = er.async_get(hass)
+        
+        # Find all entities for this config entry
+        for entity_entry in er.async_entries_for_config_entry(registry, entry.entry_id):
+            if entity_entry.domain == "geo_location":
+                if entity_entry.unique_id not in active_ids:
+                    # Check if it was one of ours (prefixed with DOMAIN_)
+                    if entity_entry.unique_id.startswith(f"{DOMAIN}_"):
+                        _LOGGER.debug("Removing orphaned entity from registry: %s", entity_entry.entity_id)
+                        registry.async_remove(entity_entry.entity_id)
+
         if new_advisories:
             async_add_entities(new_advisories)
 
@@ -94,8 +107,8 @@ class HawaiiWaterQualityGeolocationEvent(CoordinatorEntity, GeolocationEvent):
         self._advisory = advisory
         self._attr_name = advisory["name"]
         self._attr_unique_id = f"{DOMAIN}_{advisory['id']}"
-        self._attr_latitude = advisory["latitude"]
-        self._attr_longitude = advisory["longitude"]
+        self._attr_latitude = float(advisory["latitude"])
+        self._attr_longitude = float(advisory["longitude"])
         self._attr_unit_of_measurement = "km"
         self._attr_source = DOMAIN
 
@@ -113,24 +126,20 @@ class HawaiiWaterQualityGeolocationEvent(CoordinatorEntity, GeolocationEvent):
     def update_advisory(self, advisory: dict[str, Any]) -> None:
         """Update the advisory data."""
         self._advisory = advisory
-        self._attr_latitude = advisory["latitude"]
-        self._attr_longitude = advisory["longitude"]
-        self.async_write_ha_state()
-
-    @property
-    def source(self) -> str:
-        """Return the source of the event."""
-        return DOMAIN
+        self._attr_latitude = float(advisory["latitude"])
+        self._attr_longitude = float(advisory["longitude"])
+        # No need to call async_write_ha_state here if we trust the coordinator listener to trigger it
+        # or if we are already in an update loop.
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state attributes."""
         return {
-            "event_id": self._advisory["event_id"],
+            "event_id": str(self._advisory["event_id"]),
             "type": self._advisory["type"],
             "status": self._advisory["status"],
             "island": self._advisory["island"],
             "posted_date": self._advisory["posted_date"],
             "geometry": self._advisory["geometry"],
-            "rgb_color": [205, 133, 63], # Peru (CD 85 3F)
+            "rgb_color": [139, 69, 19], # Brown (8B 45 13)
         }

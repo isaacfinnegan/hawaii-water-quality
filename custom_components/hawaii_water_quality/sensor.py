@@ -98,7 +98,8 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
             active_areas = island_data.get("active_areas", [])
             geojson = island_data.get("geojson", {"type": "FeatureCollection", "features": []})
 
-        return {
+        res = {
+            "island": self.island_id,
             "active_areas": active_areas,
             "advisories": [
                 {
@@ -110,3 +111,37 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
                 for event in events
             ]
         }
+
+        # Only include geojson if it fits (roughly under 15KB)
+        import json
+        try:
+            geojson_str = json.dumps(geojson, separators=(',', ':'))
+            if len(geojson_str) < 15500:
+                res["geojson"] = geojson
+            else:
+                # Provide fallback points if full geojson is too large
+                if self.island_id == "All":
+                    advisories = self.coordinator.data.get("all_advisories", [])
+                else:
+                    advisories = island_data.get("advisories", [])
+                
+                res["geojson"] = {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "geometry": {"type": "Point", "coordinates": [a["longitude"], a["latitude"]]},
+                            "properties": {
+                                "name": a["name"],
+                                "type": a["type"],
+                                "posted_date": a["posted_date"],
+                                "event_id": str(a.get("event_id")),
+                                "fallback": True
+                            }
+                        } for a in advisories
+                    ]
+                }
+        except Exception as e:
+            _LOGGER.error("Error processing GeoJSON for sensor: %s", e)
+
+        return res

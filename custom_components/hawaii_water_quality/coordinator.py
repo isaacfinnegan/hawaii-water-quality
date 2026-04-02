@@ -147,8 +147,8 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
         if not coords:
             return None
         
-        # Apply configurable offset
-        points = [[float(c[0]) + offset_lon, float(c[1]) + offset_lat] for c in coords]
+        # Apply configurable offset and round to 5 decimal places (~1.1m precision)
+        points = [[round(float(c[0]) + offset_lon, 5), round(float(c[1]) + offset_lat, 5)] for c in coords]
         
         if "POLYGON" in wkt.upper():
             return {"type": "Polygon", "coordinates": [points]}
@@ -239,8 +239,8 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     "status": event.get("status"),
                     "island": island_name,
                     "posted_date": event.get("postedDate"),
-                    "event_id": event.get("id"),
-                    "color": "#CD853F" # Peru
+                    "event_id": str(event.get("id")),
+                    "color": "#8B4513" # Brown
                 }
 
                 feature = {
@@ -276,8 +276,8 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
                     "status": event.get("status"),
                     "island": island_name,
                     "posted_date": event.get("postedDate"),
-                    "event_id": event.get("id"),
-                    "color": "#CD853F",
+                    "event_id": str(event.get("id")),
+                    "color": "#8B4513",
                     "fallback": True
                 }
                 feature = {"type": "Feature", "geometry": geojson_geom, "properties": properties}

@@ -1,4 +1,4 @@
-console.log("Hawaii Water Quality Card: v2.2.1 Loading...");
+console.log("Hawaii Water Quality Card: v2.2.2 Loading...");
 
 const ISLAND_DEFAULTS = {
     "oahu": { default_lat: 21.4389, default_lon: -158.0001, default_zoom: 10 },
@@ -184,17 +184,59 @@ class HawaiiWaterQualityCard extends HTMLElement {
     this.shadowRoot.getElementById('count-box').innerText = `${state.state} Active Areas`;
     
     const geojson = state.attributes.geojson;
-    const geojsonStr = JSON.stringify(geojson) + JSON.stringify(this.config.offset_lon) + JSON.stringify(this.config.offset_lat);
+    
+    const features = [];
+    if (geojson && geojson.features) {
+        features.push(...JSON.parse(JSON.stringify(geojson.features)));
+    }
+
+    // Fallback: search for geo_location entities from this integration
+    for (const entityId in this._hass.states) {
+        const ent = this._hass.states[entityId];
+        if (entityId.startsWith("geo_location.") && ent.attributes.source === "hawaii_water_quality") {
+            const sensorIsland = state.attributes.island;
+            const entIsland = ent.attributes.island;
+            const islandMatch = !sensorIsland || sensorIsland === "All" || (entIsland && entIsland === sensorIsland);
+
+            if (islandMatch) {
+                const existingIdx = features.findIndex(f => f.properties && f.properties.event_id == ent.attributes.event_id);
+                if (existingIdx >= 0) {
+                    const existingGeom = features[existingIdx].geometry;
+                    const newGeom = ent.attributes.geometry;
+                    if (newGeom && newGeom.type !== "Point" && existingGeom && existingGeom.type === "Point") {
+                        features[existingIdx] = {
+                            type: "Feature",
+                            geometry: newGeom,
+                            properties: features[existingIdx].properties
+                        };
+                    }
+                } else if (ent.attributes.geometry) {
+                    features.push({
+                        type: "Feature",
+                        geometry: ent.attributes.geometry,
+                        properties: {
+                            name: ent.attributes.friendly_name || ent.state,
+                            type: ent.attributes.type,
+                            posted_date: ent.attributes.posted_date,
+                            event_id: ent.attributes.event_id
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    const geojsonStr = JSON.stringify(features) + JSON.stringify(this.config.offset_lon) + JSON.stringify(this.config.offset_lat);
     
     if (geojsonStr === this._lastGeoJsonStr && !force) return;
     this._lastGeoJsonStr = geojsonStr;
 
-    if (!geojson) return;
+    if (features.length === 0) return;
     if (this.geoJsonLayer) this.map.removeLayer(this.geoJsonLayer);
 
     const offLon = parseFloat(this.config.offset_lon) || 0;
     const offLat = parseFloat(this.config.offset_lat) || 0;
-    const cardGeoJson = JSON.parse(JSON.stringify(geojson));
+    const cardGeoJson = { type: "FeatureCollection", features: features };
     
     const shiftCoords = (coords) => {
         if (typeof coords[0] === 'number') return [coords[0] + offLon, coords[1] + offLat];
