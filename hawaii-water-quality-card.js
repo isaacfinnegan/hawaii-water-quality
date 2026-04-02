@@ -1,4 +1,4 @@
-console.log("Hawaii Water Quality Card: v2.1.2 Loading...");
+console.log("Hawaii Water Quality Card: v2.2.0 Loading...");
 
 const ISLAND_DEFAULTS = {
     "oahu": { default_lat: 21.4389, default_lon: -158.0001, default_zoom: 10 },

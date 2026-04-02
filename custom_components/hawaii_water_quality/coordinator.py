@@ -66,7 +66,7 @@ class HawaiiWaterQualityDataUpdateCoordinator(DataUpdateCoordinator):
         async with async_timeout.timeout(30):
             headers = {"User-Agent": USER_AGENT, "Accept": "application/json"}
             # Force IPv4 to fix macOS Docker routing issues
-            connector = aiohttp.TCPConnector(family=socket.AF_INET)
+            connector = aiohttp.TCPConnector(family=socket.AF_INET, verify_ssl=False)
             async with aiohttp.ClientSession(connector=connector) as session:
                 async with session.get(API_URL_EVENTS, headers=headers) as response:
                     if response.status != 200:

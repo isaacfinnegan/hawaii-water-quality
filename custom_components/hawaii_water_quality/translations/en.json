@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Hawaii Ocean Water Quality",
+        "description": "Choose an island to monitor.",
+        "data": {
+          "island": "Island",
+          "recent_hours": "Advisory Recency (hours)"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Coordinate Offset Adjustment",
+        "description": "Adjust the coordinate offset to align highlights with map tiles. \n\nTip: Click the 'correct' location on the dashboard map card to see the required deltas.",
+        "data": {
+          "offset_lon": "Longitude Offset (Decimal Degrees)",
+          "offset_lat": "Latitude Offset (Decimal Degrees)"
+        }
+      }
+    }
+  }
+}

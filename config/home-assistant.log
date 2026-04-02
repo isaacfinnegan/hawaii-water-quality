@@ -1,10 +1,373 @@
-2026-03-27 15:10:31.361 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2026-03-27 15:10:31.855 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
-2026-03-27 15:10:31.886 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
-2026-03-27 15:10:31.892 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
-2026-03-27 15:10:32.875 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
-2026-03-27 15:10:32.888 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
-2026-03-27 15:10:32.891 ERROR (MainThread) [homeassistant.components.homeassistant_alerts.coordinator] Error requesting homeassistant_alerts data: Cannot connect to host alerts.home-assistant.io:443 ssl:default [Network unreachable]
-2026-03-27 15:10:32.891 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
-2026-03-27 15:10:43.329 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
-2026-03-27 15:11:03.644 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-04-01 14:20:01.199 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2026-04-01 14:20:01.629 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-04-01 14:20:01.680 INFO (MainThread) [custom_components.hawaii_water_quality] Initializing Hawaii Water Quality integration
+2026-04-01 14:20:01.682 INFO (MainThread) [custom_components.hawaii_water_quality] Starting initial Hawaii Water Quality data fetch
+2026-04-01 14:20:01.682 INFO (MainThread) [custom_components.hawaii_water_quality] Initializing Hawaii Water Quality integration
+2026-04-01 14:20:01.683 INFO (MainThread) [custom_components.hawaii_water_quality] Starting initial Hawaii Water Quality data fetch
+2026-04-01 14:20:01.685 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:20:01.690 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:20:19.061 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 17.379 seconds (success: True)
+2026-04-01 14:20:19.070 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 1 found
+2026-04-01 14:20:19.071 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2007_fallback
+2026-04-01 14:20:24.422 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 22.741 seconds (success: True)
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 27 found
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2035_112621
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2035_112622
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2034_fallback
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_fallback
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2032_fallback
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2017_112607
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2016_112534
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2014_112526
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2013_112525
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2011_fallback
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112499
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112500
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112501
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112502
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112503
+2026-04-01 14:20:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112504
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112505
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112506
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1995_fallback
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1994_fallback
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_fallback
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112464
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112465
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112466
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112467
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112468
+2026-04-01 14:20:24.427 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112469
+2026-04-01 14:35:18.451 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:35:18.460 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:35:18.467 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] Error fetching hawaii_water_quality data: Error communicating with API: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:35:18.467 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Full error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/connector.py", line 1298, in _wrap_create_connection
+    sock = await aiohappyeyeballs.start_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/usr/local/lib/python3.14/site-packages/aiohappyeyeballs/impl.py", line 122, in start_connection
+    raise first_exception
+  File "/usr/local/lib/python3.14/site-packages/aiohappyeyeballs/impl.py", line 73, in start_connection
+    sock = await _connect_sock(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "/usr/local/lib/python3.14/site-packages/aiohappyeyeballs/impl.py", line 208, in _connect_sock
+    await loop.sock_connect(sock, address)
+  File "/usr/local/lib/python3.14/asyncio/selector_events.py", line 645, in sock_connect
+    return await fut
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.14/asyncio/selector_events.py", line 653, in _sock_connect
+    sock.connect(address)
+    ~~~~~~~~~~~~^^^^^^^^^
+OSError: [Errno 101] Network unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 54, in _async_update_data
+    return await self._fetch_via_aiohttp(cutoff_time)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 71, in _fetch_via_aiohttp
+    async with session.get(API_URL_EVENTS, headers=headers) as response:
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client.py", line 1510, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client.py", line 779, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client.py", line 734, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        req, traces=traces, timeout=real_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/connector.py", line 672, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/connector.py", line 1239, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/connector.py", line 1611, in _create_direct_connection
+    raise last_exc
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/connector.py", line 1580, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/connector.py", line 1321, in _wrap_create_connection
+    raise client_error(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorError: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 59, in _async_update_data
+    return await self.hass.async_add_executor_job(self._fetch_via_urllib, cutoff_time)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/local/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 108, in _fetch_via_urllib
+    with urllib.request.urlopen(req, timeout=20) as response:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/urllib/request.py", line 487, in open
+    response = self._open(req, data)
+  File "/usr/local/lib/python3.14/urllib/request.py", line 504, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "/usr/local/lib/python3.14/urllib/request.py", line 464, in _call_chain
+    result = func(*args)
+  File "/usr/local/lib/python3.14/urllib/request.py", line 1369, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        context=self._context)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/urllib/request.py", line 1324, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 101] Network unreachable>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/update_coordinator.py", line 426, in _async_refresh
+    self.data = await self._async_update_data()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 62, in _async_update_data
+    raise UpdateFailed(f"Error communicating with API: {fallback_err}") from fallback_err
+homeassistant.helpers.update_coordinator.UpdateFailed: Error communicating with API: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:35:18.482 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 0.047 seconds (success: False)
+2026-04-01 14:35:18.482 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 1 found
+2026-04-01 14:35:18.482 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2007_fallback
+2026-04-01 14:35:24.262 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:35:28.445 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 4.191 seconds (success: True)
+2026-04-01 14:35:28.447 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 21 found
+2026-04-01 14:35:28.447 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2035_fallback
+2026-04-01 14:35:28.447 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2034_fallback
+2026-04-01 14:35:28.447 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112618
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112624
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112625
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112626
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112627
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2032_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2017_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2016_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2014_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2013_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2011_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1995_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1994_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112470
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112471
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112472
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112473
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_fallback
+2026-04-01 14:35:28.448 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2035_112621
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2035_112622
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2033_fallback
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2017_112607
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2016_112534
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2014_112526
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2013_112525
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112499
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112500
+2026-04-01 14:35:28.449 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112501
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112502
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112503
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112504
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112505
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_2010_112506
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1993_fallback
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1992_112464
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1992_112465
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1992_112466
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1992_112467
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1992_112468
+2026-04-01 14:35:28.450 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Removing geo_location entity: hawaii_water_quality_1992_112469
+2026-04-01 14:50:19.176 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched 500 events from API
+2026-04-01 14:50:19.177 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Found 17 active/recent events
+2026-04-01 14:50:20.793 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2035: 2 locations
+2026-04-01 14:50:22.431 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2034: 2 locations
+2026-04-01 14:50:24.017 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2033: 5 locations
+2026-04-01 14:50:25.725 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2032: 4 locations
+2026-04-01 14:50:27.394 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2031: 1 locations
+2026-04-01 14:50:28.847 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched 500 events from API
+2026-04-01 14:50:28.848 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Found 17 active/recent events
+2026-04-01 14:50:29.036 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2030: 1 locations
+2026-04-01 14:50:31.071 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2035: 2 locations
+2026-04-01 14:50:31.311 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2017: 1 locations
+2026-04-01 14:50:33.183 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2034: 2 locations
+2026-04-01 14:50:33.432 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2016: 1 locations
+2026-04-01 14:50:35.585 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2033: 5 locations
+2026-04-01 14:50:35.811 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2014: 1 locations
+2026-04-01 14:50:37.898 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2032: 4 locations
+2026-04-01 14:50:38.165 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2013: 1 locations
+2026-04-01 14:50:40.200 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2031: 1 locations
+2026-04-01 14:50:40.473 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2011: 0 locations
+2026-04-01 14:50:42.879 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2030: 1 locations
+2026-04-01 14:50:43.083 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2010: 8 locations
+2026-04-01 14:50:45.399 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2017: 1 locations
+2026-04-01 14:50:46.192 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2007: 0 locations
+2026-04-01 14:50:48.244 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: 
+2026-04-01 14:50:48.320 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:50:48.323 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 30.096 seconds (success: False)
+2026-04-01 14:50:50.255 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2016: 1 locations
+2026-04-01 14:50:52.619 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2014: 1 locations
+2026-04-01 14:50:54.892 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2013: 1 locations
+2026-04-01 14:50:56.700 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2011: 0 locations
+2026-04-01 14:50:58.088 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: 
+2026-04-01 14:50:58.122 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:50:58.123 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] Error fetching hawaii_water_quality data: Error communicating with API: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:50:58.123 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Full error:
+Traceback (most recent call last):
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 99, in _fetch_via_aiohttp
+    detailed_events = await asyncio.gather(*[fetch_details(e) for e in active_events])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 89, in fetch_details
+    async with session.get(f"{API_URL_EVENT_DETAILS}{event_id}", headers=headers, timeout=25) as resp:
+               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client.py", line 1510, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client.py", line 779, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client.py", line 757, in _connect_and_send_request
+    await resp.start(conn)
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/client_reqrep.py", line 539, in start
+    message, payload = await protocol.read()  # type: ignore[union-attr]
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/aiohttp/streams.py", line 703, in read
+    await self._waiter
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 54, in _async_update_data
+    return await self._fetch_via_aiohttp(cutoff_time)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 66, in _fetch_via_aiohttp
+    async with async_timeout.timeout(30):
+               ~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "/usr/local/lib/python3.14/site-packages/async_timeout/__init__.py", line 141, in __aexit__
+    self._do_exit(exc_type)
+    ~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.14/site-packages/async_timeout/__init__.py", line 228, in _do_exit
+    raise asyncio.TimeoutError
+TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 59, in _async_update_data
+    return await self.hass.async_add_executor_job(self._fetch_via_urllib, cutoff_time)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/local/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 108, in _fetch_via_urllib
+    with urllib.request.urlopen(req, timeout=20) as response:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/urllib/request.py", line 187, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/urllib/request.py", line 487, in open
+    response = self._open(req, data)
+  File "/usr/local/lib/python3.14/urllib/request.py", line 504, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+                              '_open', req)
+  File "/usr/local/lib/python3.14/urllib/request.py", line 464, in _call_chain
+    result = func(*args)
+  File "/usr/local/lib/python3.14/urllib/request.py", line 1369, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        context=self._context)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/urllib/request.py", line 1324, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 101] Network unreachable>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/update_coordinator.py", line 426, in _async_refresh
+    self.data = await self._async_update_data()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/config/custom_components/hawaii_water_quality/coordinator.py", line 62, in _async_update_data
+    raise UpdateFailed(f"Error communicating with API: {fallback_err}") from fallback_err
+homeassistant.helpers.update_coordinator.UpdateFailed: Error communicating with API: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 14:50:58.146 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 30.091 seconds (success: False)
+2026-04-01 14:50:58.158 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 21 found
+2026-04-01 14:50:58.158 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2035_fallback
+2026-04-01 14:50:58.158 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2034_fallback
+2026-04-01 14:50:58.158 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2033_112618
+2026-04-01 14:50:58.159 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2033_112624
+2026-04-01 14:50:58.159 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2033_112625
+2026-04-01 14:50:58.159 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2033_112626
+2026-04-01 14:50:58.159 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2033_112627
+2026-04-01 14:50:58.159 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2032_fallback
+2026-04-01 14:50:58.160 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2017_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2016_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2014_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2013_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2011_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_2010_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1995_fallback
+2026-04-01 14:50:58.166 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1994_fallback
+2026-04-01 14:50:58.167 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1993_112470
+2026-04-01 14:50:58.167 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1993_112471
+2026-04-01 14:50:58.167 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1993_112472
+2026-04-01 14:50:58.167 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1993_112473
+2026-04-01 14:50:58.167 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating existing geo_location entity: hawaii_water_quality_1992_fallback
+2026-04-01 15:05:48.866 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched 500 events from API
+2026-04-01 15:05:48.870 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Found 17 active/recent events
+2026-04-01 15:05:50.595 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2035: 2 locations
+2026-04-01 15:05:52.513 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2034: 2 locations
+2026-04-01 15:05:54.434 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2033: 5 locations
+2026-04-01 15:05:56.136 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2032: 4 locations
+2026-04-01 15:05:57.822 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2031: 1 locations
+2026-04-01 15:05:58.740 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched 500 events from API
+2026-04-01 15:05:58.741 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Found 17 active/recent events
+2026-04-01 15:05:59.588 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2030: 1 locations
+2026-04-01 15:06:00.592 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2035: 2 locations
+2026-04-01 15:06:02.082 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2017: 1 locations
+2026-04-01 15:06:03.156 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2034: 2 locations
+2026-04-01 15:06:04.727 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2016: 1 locations
+2026-04-01 15:06:06.034 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2033: 5 locations
+2026-04-01 15:06:07.313 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2014: 1 locations
+2026-04-01 15:06:08.000 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2032: 4 locations
+2026-04-01 15:06:09.132 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2013: 1 locations
+2026-04-01 15:06:09.976 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2031: 1 locations
+2026-04-01 15:06:11.213 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2011: 0 locations
+2026-04-01 15:06:12.018 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2030: 1 locations
+2026-04-01 15:06:13.227 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2010: 8 locations
+2026-04-01 15:06:14.091 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2017: 1 locations
+2026-04-01 15:06:15.142 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2007: 0 locations
+2026-04-01 15:06:15.997 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2016: 1 locations
+2026-04-01 15:06:17.150 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 1995: 3 locations
+2026-04-01 15:06:18.039 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: 
+2026-04-01 15:06:18.062 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 15:06:18.158 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 30.131 seconds (success: False)
+2026-04-01 15:06:18.159 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2014: 1 locations
+2026-04-01 15:06:21.000 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2013: 1 locations
+2026-04-01 15:06:24.426 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2011: 0 locations
+2026-04-01 15:06:26.004 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2010: 8 locations
+2026-04-01 15:06:27.568 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Fetched details for event 2007: 0 locations
+2026-04-01 15:06:27.950 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: 
+2026-04-01 15:06:27.957 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-04-01 15:06:27.988 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 30.047 seconds (success: False)

@@ -9,7 +9,8 @@
     },
     "home": {
       "favorite_entities": [
-        "camera.hawaii_ocean_water_quality_oahu_map"
+        "camera.hawaii_ocean_water_quality_oahu_map",
+        "sensor.hawaii_ocean_water_quality_oahu"
       ]
     }
   }

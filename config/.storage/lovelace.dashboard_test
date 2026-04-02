@@ -16,17 +16,12 @@
                   "heading": "New section"
                 },
                 {
-                  "type": "tile",
-                  "entity": "camera.hawaii_ocean_water_quality_oahu_map",
-                  "show_entity_picture": true
-                },
-                {
-                  "type": "map",
-                  "entities": [],
-                  "theme_mode": "auto",
-                  "geo_location_sources": [
-                    "hawaii_water_quality"
-                  ]
+                  "type": "custom:hawaii-water-quality-card",
+                  "entity": "sensor.hawaii_ocean_water_quality_oahu",
+                  "title": "Hawaii Water Quality",
+                  "default_zoom": 11,
+                  "offset_lat": -0.097,
+                  "offset_lon": 0.0291
                 }
               ]
             }

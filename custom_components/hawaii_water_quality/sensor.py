@@ -71,8 +71,11 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
         )
 
     @property
-    def native_value(self) -> int:
+    def native_value(self) -> int | None:
         """Return the state of the sensor (count of active areas)."""
+        if not self.coordinator.data:
+            return None
+            
         if self.island_id == "All":
             return len(self.coordinator.data.get("all_active_areas", []))
         
@@ -82,6 +85,9 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state attributes."""
+        if not self.coordinator.data:
+            return {}
+
         if self.island_id == "All":
             events = self.coordinator.data.get("all_active", [])
             active_areas = self.coordinator.data.get("all_active_areas", [])
@@ -94,7 +100,6 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
 
         return {
             "active_areas": active_areas,
-            "geojson": geojson,
             "advisories": [
                 {
                     "title": event.get("title"),

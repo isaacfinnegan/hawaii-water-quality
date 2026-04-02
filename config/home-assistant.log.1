@@ -1,2 +1,54 @@
-2026-03-27 15:07:23.647 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2026-03-27 15:07:24.239 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-04-01 14:18:50.593 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2026-04-01 14:18:51.045 INFO (MainThread) [custom_components.hawaii_water_quality] Initializing Hawaii Water Quality integration
+2026-04-01 14:18:51.047 INFO (MainThread) [custom_components.hawaii_water_quality] Starting initial Hawaii Water Quality data fetch
+2026-04-01 14:18:51.047 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Starting aiohttp fetch from https://eha-cloud.doh.hawaii.gov/cwb/api/json/reply/GetEvents
+2026-04-01 14:18:51.047 INFO (MainThread) [custom_components.hawaii_water_quality] Initializing Hawaii Water Quality integration
+2026-04-01 14:18:51.047 INFO (MainThread) [custom_components.hawaii_water_quality] Starting initial Hawaii Water Quality data fetch
+2026-04-01 14:18:51.047 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Starting aiohttp fetch from https://eha-cloud.doh.hawaii.gov/cwb/api/json/reply/GetEvents
+2026-04-01 14:18:51.048 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp get(events) failed: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:18:51.049 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp get(events) failed: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:18:51.049 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:18:51.049 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: Cannot connect to host eha-cloud.doh.hawaii.gov:443 ssl:default [Network unreachable]
+2026-04-01 14:19:13.983 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 22.935 seconds (success: True)
+2026-04-01 14:19:13.999 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 1 found
+2026-04-01 14:19:14.002 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2007_fallback
+2026-04-01 14:19:39.499 DEBUG (MainThread) [custom_components.hawaii_water_quality.coordinator] Finished fetching hawaii_water_quality data in 48.452 seconds (success: True)
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Updating geo_location entities: 38 found
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2035_fallback
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2034_112619
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2034_112623
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112618
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112624
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112625
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112626
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2033_112627
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2032_112617
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2032_112628
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2032_112629
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2032_112630
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2017_112607
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2016_fallback
+2026-04-01 14:19:39.502 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2014_112526
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2013_112525
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2011_fallback
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112499
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112500
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112501
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112502
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112503
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112504
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112505
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_2010_112506
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1995_fallback
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1994_112474
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1994_112475
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112470
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112471
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112472
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1993_112473
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112464
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112465
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112466
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112467
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112468
+2026-04-01 14:19:39.503 DEBUG (MainThread) [custom_components.hawaii_water_quality.geo_location] Adding new geo_location entity: hawaii_water_quality_1992_112469

@@ -11,7 +11,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN, CONF_ISLAND
+from .const import DOMAIN, CONF_ISLAND, NAME
 from .coordinator import HawaiiWaterQualityDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
@@ -31,6 +31,10 @@ async def async_setup_entry(
     @callback
     def update_entities():
         """Update geo-location entities based on coordinator data."""
+        if not coordinator.data:
+            _LOGGER.debug("No coordinator data available for geo_location update")
+            return
+
         if island_id == "All":
             advisories = coordinator.data.get("all_advisories", [])
         else:
@@ -100,7 +104,7 @@ class HawaiiWaterQualityGeolocationEvent(CoordinatorEntity, GeolocationEvent):
         """Return device information."""
         return DeviceInfo(
             identifiers={(DOMAIN, self.coordinator.entry.entry_id)},
-            name=f"{NAME}",
+            name="Hawaii Ocean Water Quality",
             manufacturer="Hawaii DOH",
             model="Water Quality Integration",
         )
