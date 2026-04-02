@@ -1,4 +1,4 @@
-console.log("Hawaii Water Quality Card: v2.2.0 Loading...");
+console.log("Hawaii Water Quality Card: v2.2.1 Loading...");
 
 const ISLAND_DEFAULTS = {
     "oahu": { default_lat: 21.4389, default_lon: -158.0001, default_zoom: 10 },
@@ -123,15 +123,32 @@ class HawaiiWaterQualityCard extends HTMLElement {
   }
 
   setConfig(config) {
+    if (!config.entity) {
+      this.config = config;
+      return;
+    }
+
+    const entityId = config.entity.toLowerCase();
+    let islandKey = "all";
+    for (const k of Object.keys(ISLAND_DEFAULTS)) {
+        if (entityId.includes(k)) { islandKey = k; break; }
+    }
+    const d = ISLAND_DEFAULTS[islandKey];
+
     this.config = {
         title: "Hawaii Water Quality",
+        default_lat: d.default_lat,
+        default_lon: d.default_lon,
+        default_zoom: d.default_zoom,
         ...config,
         offset_lon: parseFloat(config.offset_lon) || 0,
-        offset_lat: parseFloat(config.offset_lat) || 0,
-        default_zoom: parseInt(config.default_zoom) || 9,
-        default_lat: parseFloat(config.default_lat) || 21.3069,
-        default_lon: parseFloat(config.default_lon) || -157.8583
+        offset_lat: parseFloat(config.offset_lat) || 0
     };
+
+    // Ensure numeric types
+    this.config.default_lat = parseFloat(this.config.default_lat);
+    this.config.default_lon = parseFloat(this.config.default_lon);
+    this.config.default_zoom = parseInt(this.config.default_zoom);
 
     if (this.map) {
         this.map.setView([this.config.default_lat, this.config.default_lon], this.config.default_zoom);
@@ -206,7 +223,23 @@ class HawaiiWaterQualityCard extends HTMLElement {
 
   static getStubConfig(hass, entities, entitiesFallback) {
     const entity = entities.find(e => e.startsWith('sensor.hawaii_ocean_water_quality_')) || entitiesFallback[0];
-    return { entity: entity || "", title: "Hawaii Water Quality", offset_lon: 0, offset_lat: 0, default_zoom: 9 };
+    let islandKey = "all";
+    if (entity) {
+        const entityId = entity.toLowerCase();
+        for (const k of Object.keys(ISLAND_DEFAULTS)) {
+            if (entityId.includes(k)) { islandKey = k; break; }
+        }
+    }
+    const d = ISLAND_DEFAULTS[islandKey];
+    return { 
+        entity: entity || "", 
+        title: "Hawaii Water Quality", 
+        offset_lon: 0, 
+        offset_lat: 0, 
+        default_lat: d.default_lat,
+        default_lon: d.default_lon,
+        default_zoom: d.default_zoom 
+    };
   }
 
   getCardSize() { return 4; }

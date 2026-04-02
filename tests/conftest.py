@@ -5,9 +5,18 @@ from unittest.mock import patch, MagicMock
 from homeassistant.core import HomeAssistant
 from custom_components.hawaii_water_quality.const import DOMAIN
 
+import sys
+import os
+
 @pytest.fixture(autouse=True)
 def auto_enable_custom_integrations(hass: HomeAssistant):
     """Enable custom integrations in Home Assistant."""
+    # Ensure custom_components is in sys.path
+    custom_components_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "custom_components"))
+    if custom_components_path not in sys.path:
+        sys.path.insert(0, custom_components_path)
+    
+    hass.config.components.add(DOMAIN)
     yield
 
 @pytest.fixture

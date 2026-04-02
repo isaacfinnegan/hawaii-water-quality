@@ -27,6 +27,7 @@ async def test_camera_svg_generation(hass, mock_config_entry):
     }
     
     camera = HawaiiWaterQualityCamera(coordinator, "Oahu")
+    camera.hass = hass
     
     with patch("os.path.exists", return_value=True), \
          patch("builtins.open", MagicMock()):
