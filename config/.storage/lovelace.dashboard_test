@@ -17,11 +17,22 @@
                 },
                 {
                   "type": "custom:hawaii-water-quality-card",
-                  "entity": "sensor.hawaii_ocean_water_quality_oahu",
                   "title": "Hawaii Water Quality",
                   "default_zoom": 11,
                   "offset_lat": -0.097,
-                  "offset_lon": 0.0291
+                  "offset_lon": 0.0291,
+                  "entity": "sensor.hawaii_ocean_water_quality_oahu",
+                  "default_lat": 21.36,
+                  "default_lon": -157.801
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "New section"
                 }
               ]
             }

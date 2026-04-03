@@ -11,6 +11,8 @@ CONF_OFFSET_LAT = "offset_lat"
 DEFAULT_OFFSET_LON = -0.029
 DEFAULT_OFFSET_LAT = 0.097
 
+CARD_VERSION = "2.2.2"
+
 ISLANDS = {
     "All": "All Islands",
     "Hawaii": "Hawai\u2018i",

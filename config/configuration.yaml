@@ -14,3 +14,7 @@ logger:
   default: warning
   logs:
     custom_components.hawaii_water_quality: debug
+
+logger:
+  logs:
+    custom_components.hawaii_water_quality: debug

@@ -81,7 +81,7 @@ class HawaiiWaterQualityCamera(CoordinatorEntity, Camera):
         
         # 1. Background Map (Embedded as Base64)
         map_filename = f"osm_{self.island_id.lower()}.png"
-        map_path = self.hass.config.path("www", map_filename)
+        map_path = os.path.join(os.path.dirname(__file__), "maps", map_filename)
         
         encoded_image = ""
         if os.path.exists(map_path):

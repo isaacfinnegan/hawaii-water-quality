@@ -13,7 +13,7 @@ A Home Assistant custom component that tracks water quality advisories from the 
 ### Via HACS (Recommended)
 1. Ensure [HACS](https://hacs.xyz/) is installed.
 2. Go to HACS -> Integrations -> 3 dots (top right) -> **Custom repositories**.
-3. Paste this repository URL: `https://github.com/YOUR_USERNAME/hawaii-water-quality`
+3. Paste this repository URL: `https://github.com/isaacfinnegan/hawaii-water-quality`
 4. Select **Integration** as the category and click **Add**.
 5. Find "Hawaii Ocean Water Quality" in HACS and click **Download**.
 6. Restart Home Assistant.
@@ -22,13 +22,8 @@ A Home Assistant custom component that tracks water quality advisories from the 
 1. Copy the `custom_components/hawaii_water_quality` folder to your Home Assistant `config/custom_components/` directory.
 2. Restart Home Assistant.
 
-## Custom Card Installation
-The integration includes a high-performance map card. 
-1. Copy `hawaii-water-quality-card.js` from the root of this repo to your `www` folder.
-2. Add it as a resource in Settings -> Dashboards -> Resources:
-   - URL: `/local/hawaii-water-quality-card.js`
-   - Type: `JavaScript Module`
-
+## Custom Card
+The integration includes a high-performance Leaflet-based map card. When installing via HACS, the card is automatically registered as a Lovelace resource and is available to choose in the dashboard editor as "Hawaii Water Quality Map".
 
 ### Prerequisites
 - Docker and Docker Compose installed.
