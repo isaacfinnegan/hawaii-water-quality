@@ -1,4 +1,4 @@
-console.log("Hawaii Water Quality Card: v2.2.2 Loading...");
+console.log("Hawaii Water Quality Card: v2.2.6 Loading...");
 
 const ISLAND_DEFAULTS = {
     "oahu": { default_lat: 21.4389, default_lon: -158.0001, default_zoom: 10 },
@@ -173,7 +173,7 @@ class HawaiiWaterQualityCard extends HTMLElement {
     this.map = L.map(this.content).setView([this.config.default_lat, this.config.default_lon], this.config.default_zoom);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(this.map);
     new ResizeObserver(() => this.map?.invalidateSize()).observe(this.content);
-    this._updateMap();
+    this._updateMap(true);
   }
 
   _updateMap(force = false) {
@@ -190,10 +190,14 @@ class HawaiiWaterQualityCard extends HTMLElement {
         features.push(...JSON.parse(JSON.stringify(geojson.features)));
     }
 
+    let geoLocCount = 0;
+    let mergeCount = 0;
+
     // Fallback: search for geo_location entities from this integration
     for (const entityId in this._hass.states) {
         const ent = this._hass.states[entityId];
         if (entityId.startsWith("geo_location.") && ent.attributes.source === "hawaii_water_quality") {
+            geoLocCount++;
             const sensorIsland = state.attributes.island;
             const entIsland = ent.attributes.island;
             const islandMatch = !sensorIsland || sensorIsland === "All" || (entIsland && entIsland === sensorIsland);
@@ -204,16 +208,13 @@ class HawaiiWaterQualityCard extends HTMLElement {
                     const existingGeom = features[existingIdx].geometry;
                     const newGeom = ent.attributes.geometry;
                     if (newGeom && newGeom.type !== "Point" && existingGeom && existingGeom.type === "Point") {
-                        features[existingIdx] = {
-                            type: "Feature",
-                            geometry: newGeom,
-                            properties: features[existingIdx].properties
-                        };
+                        mergeCount++;
+                        features[existingIdx].geometry = JSON.parse(JSON.stringify(newGeom));
                     }
                 } else if (ent.attributes.geometry) {
                     features.push({
                         type: "Feature",
-                        geometry: ent.attributes.geometry,
+                        geometry: JSON.parse(JSON.stringify(ent.attributes.geometry)),
                         properties: {
                             name: ent.attributes.friendly_name || ent.state,
                             type: ent.attributes.type,
@@ -226,13 +227,21 @@ class HawaiiWaterQualityCard extends HTMLElement {
         }
     }
 
-    const geojsonStr = JSON.stringify(features) + JSON.stringify(this.config.offset_lon) + JSON.stringify(this.config.offset_lat);
+    // Cache key includes geoLocCount to trigger update when entities arrive after initial load
+    const geojsonStr = JSON.stringify(features) + 
+                       JSON.stringify(this.config.offset_lon) + 
+                       JSON.stringify(this.config.offset_lat) +
+                       geoLocCount;
     
     if (geojsonStr === this._lastGeoJsonStr && !force) return;
     this._lastGeoJsonStr = geojsonStr;
 
+    if (this.geoJsonLayer) {
+        this.map.removeLayer(this.geoJsonLayer);
+        this.geoJsonLayer = null;
+    }
+
     if (features.length === 0) return;
-    if (this.geoJsonLayer) this.map.removeLayer(this.geoJsonLayer);
 
     const offLon = parseFloat(this.config.offset_lon) || 0;
     const offLat = parseFloat(this.config.offset_lat) || 0;

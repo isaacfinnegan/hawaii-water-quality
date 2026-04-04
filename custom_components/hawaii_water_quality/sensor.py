@@ -116,7 +116,7 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
         import json
         try:
             geojson_str = json.dumps(geojson, separators=(',', ':'))
-            if len(geojson_str) < 15500:
+            if len(geojson_str) < 14000:
                 res["geojson"] = geojson
             else:
                 # Provide fallback points if full geojson is too large
