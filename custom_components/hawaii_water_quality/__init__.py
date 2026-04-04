@@ -19,17 +19,12 @@ PLATFORMS: list[str] = ["sensor", "camera", "geo_location"]
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the Hawaii Water Quality component."""
     hass.data.setdefault(DOMAIN, {})
-    return True
-
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Hawaii Water Quality from a config entry."""
-    _LOGGER.info("Initializing Hawaii Water Quality integration")
     
-    # Register static path for the dashboard card
-    # Use newer async_register_static_paths for HA compatibility if available
+    # Register static path for the dashboard card globally
     card_path = hass.config.path("custom_components/hawaii_water_quality/dashboard/hawaii-water-quality-card.js")
     url_path = "/hawaii_water_quality/hawaii-water-quality-card.js"
     
+    # Register the static path so the card is served
     if hasattr(hass.http, "async_register_static_paths"):
         await hass.http.async_register_static_paths([
             StaticPathConfig(url_path, card_path, True)
@@ -40,7 +35,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     # Automatically register the card as a Lovelace resource after a short delay
     hass.async_create_task(async_delayed_resource_registration(hass))
+    
+    return True
 
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Set up Hawaii Water Quality from a config entry."""
+    _LOGGER.info("Initializing Hawaii Water Quality integration")
+    
     coordinator = HawaiiWaterQualityDataUpdateCoordinator(hass, entry)
     
     _LOGGER.info("Starting initial Hawaii Water Quality data fetch")
@@ -62,12 +63,9 @@ async def async_delayed_resource_registration(hass: HomeAssistant) -> None:
 
 async def async_register_resource(hass: HomeAssistant) -> None:
     """Register the Lovelace resource."""
-    # We use a slightly different approach to find resources
     url = f"/hawaii_water_quality/hawaii-water-quality-card.js?v={CARD_VERSION}"
     
-    # Wait for Lovelace to be ready
     if "lovelace" not in hass.data:
-        _LOGGER.debug("Lovelace not in hass.data")
         return
         
     lovelace = hass.data["lovelace"]
@@ -76,7 +74,6 @@ async def async_register_resource(hass: HomeAssistant) -> None:
         resources = lovelace.get("resources")
         
     if not resources:
-        _LOGGER.debug("Lovelace resources not available")
         return
 
     # Check if resource already exists

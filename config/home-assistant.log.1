@@ -1,12 +1,7 @@
-2026-04-02 22:59:57.161 WARNING (SyncWorker_0) [annotatedyaml.constructors] YAML file /config/configuration.yaml contains duplicate key "logger". Check lines 12 and 17
-2026-04-02 22:59:57.176 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2026-04-02 22:59:57.618 INFO (MainThread) [custom_components.hawaii_water_quality] Initializing Hawaii Water Quality integration
-2026-04-02 22:59:57.618 ERROR (MainThread) [homeassistant.config_entries] Error setting up entry Hawaii Ocean Water Quality (O‘ahu) for hawaii_water_quality
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.14/site-packages/homeassistant/config_entries.py", line 769, in __async_setup_with_context
-    result = await component.async_setup_entry(hass, self)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/config/custom_components/hawaii_water_quality/__init__.py", line 28, in async_setup_entry
-    hass.http.register_static_path(
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'HomeAssistantHTTP' object has no attribute 'register_static_path'. Did you mean: 'async_register_static_paths'?
+2026-04-03 17:30:01.646 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hawaii_water_quality which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2026-04-03 17:30:02.354 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-04-03 17:30:09.243 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorError'
+2026-04-03 17:36:22.536 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: 
+2026-04-03 17:36:22.569 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>
+2026-04-03 17:36:57.767 WARNING (MainThread) [custom_components.hawaii_water_quality.coordinator] aiohttp fetch failed, trying synchronous fallback: 
+2026-04-03 17:36:57.777 ERROR (MainThread) [custom_components.hawaii_water_quality.coordinator] All fetch attempts failed: <urlopen error [Errno 101] Network unreachable>

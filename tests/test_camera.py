@@ -29,6 +29,13 @@ async def test_camera_svg_generation(hass, mock_config_entry):
     camera = HawaiiWaterQualityCamera(coordinator, "Oahu")
     camera.hass = hass
     
+    # Test asset loading from internal path
+    with patch("os.path.exists", return_value=True), \
+         patch("builtins.open", MagicMock()) as mock_open:
+        mock_open.return_value.__enter__.return_value.read.return_value = b"fake_image_data"
+        await camera.async_added_to_hass()
+        assert camera._encoded_background is not None
+
     with patch("os.path.exists", return_value=True), \
          patch("builtins.open", MagicMock()):
         svg = camera._generate_svg()

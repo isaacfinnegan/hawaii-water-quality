@@ -7,5 +7,5 @@
   "requirements": ["aiohttp", "async_timeout"],
   "config_flow": true,
   "iot_class": "cloud_polling",
-  "version": "1.1.3"
+  "version": "1.1.4"
 }

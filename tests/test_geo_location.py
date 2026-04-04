@@ -42,3 +42,19 @@ async def test_geo_location_lifecycle(hass: HomeAssistant, mock_config_entry):
     assert entity.unique_id == f"{DOMAIN}_adv1"
     assert entity.unit_of_measurement == "km"
     assert entity.source == DOMAIN
+    
+    # Test coordinates (critical for distance calculation)
+    assert entity.latitude == 21.0
+    assert entity.longitude == -157.0
+    
+    # Test state update trigger
+    with patch.object(entity, "async_write_ha_state") as mock_write:
+        entity.update_advisory({
+            "id": "adv1", "name": "Beach 1 Updated", "latitude": 21.1, "longitude": -157.1,
+            "event_id": "e1", "type": "T1", "status": "Open", "island": "Oahu",
+            "posted_date": "2026-03-29", "geometry": {}
+        })
+        assert entity.name == "Beach 1 Updated"
+        assert entity.latitude == 21.1
+        assert entity.longitude == -157.1
+        assert mock_write.called

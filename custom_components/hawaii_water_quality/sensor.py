@@ -130,7 +130,7 @@ class HawaiiWaterQualitySensor(CoordinatorEntity, SensorEntity):
                     "features": [
                         {
                             "type": "Feature",
-                            "geometry": {"type": "Point", "coordinates": [a["longitude"], a["latitude"]]},
+                            "geometry": {"type": "Point", "coordinates": [round(a["longitude"], 5), round(a["latitude"], 5)]},
                             "properties": {
                                 "name": a["name"],
                                 "type": a["type"],

@@ -55,6 +55,28 @@ class HawaiiWaterQualityCamera(CoordinatorEntity, Camera):
         self._attr_name = f"{NAME} {island_id} Map"
         self._attr_unique_id = f"{DOMAIN}_{island_id.lower()}_map"
         self.content_type = "image/svg+xml"
+        self._encoded_background: str | None = None
+
+    async def async_added_to_hass(self) -> None:
+        """Handle entity which will be added."""
+        await super().async_added_to_hass()
+        # Load background map in executor
+        map_filename = f"osm_{self.island_id.lower()}.png"
+        map_path = os.path.join(os.path.dirname(__file__), "maps", map_filename)
+        
+        if os.path.exists(map_path):
+            self._encoded_background = await self.hass.async_add_executor_job(
+                self._load_background, map_path
+            )
+
+    def _load_background(self, path: str) -> str | None:
+        """Load background image and encode to base64."""
+        try:
+            with open(path, "rb") as image_file:
+                return base64.b64encode(image_file.read()).decode("utf-8")
+        except Exception as e:
+            _LOGGER.error("Error reading map file %s: %s", path, e)
+        return None
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -80,18 +102,7 @@ class HawaiiWaterQualityCamera(CoordinatorEntity, Camera):
         view_w, view_h = 600, 450
         
         # 1. Background Map (Embedded as Base64)
-        map_filename = f"osm_{self.island_id.lower()}.png"
-        map_path = os.path.join(os.path.dirname(__file__), "maps", map_filename)
-        
-        encoded_image = ""
-        if os.path.exists(map_path):
-            try:
-                with open(map_path, "rb") as image_file:
-                    encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
-            except Exception as e:
-                _LOGGER.error("Error reading map file %s: %s", map_path, e)
-
-        map_url = f"data:image/png;base64,{encoded_image}" if encoded_image else ""
+        map_url = f"data:image/png;base64,{self._encoded_background}" if self._encoded_background else ""
 
         # 2. Get GeoJSON Features
         if self.island_id == "All":

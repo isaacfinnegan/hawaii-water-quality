@@ -126,10 +126,20 @@ class HawaiiWaterQualityGeolocationEvent(CoordinatorEntity, GeolocationEvent):
     def update_advisory(self, advisory: dict[str, Any]) -> None:
         """Update the advisory data."""
         self._advisory = advisory
+        self._attr_name = advisory["name"]
         self._attr_latitude = float(advisory["latitude"])
         self._attr_longitude = float(advisory["longitude"])
-        # No need to call async_write_ha_state here if we trust the coordinator listener to trigger it
-        # or if we are already in an update loop.
+        self.async_write_ha_state()
+
+    @property
+    def latitude(self) -> float | None:
+        """Return the latitude of the event."""
+        return self._attr_latitude
+
+    @property
+    def longitude(self) -> float | None:
+        """Return the longitude of the event."""
+        return self._attr_longitude
 
     @property
     def extra_state_attributes(self) -> dict[str, Any]:

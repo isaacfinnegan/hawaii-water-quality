@@ -4,14 +4,8 @@
   "key": "frontend.system_data",
   "data": {
     "core": {
-      "onboarded_version": "2026.3.4",
-      "onboarded_date": "2026-03-27T19:50:40.001Z"
-    },
-    "home": {
-      "favorite_entities": [
-        "camera.hawaii_ocean_water_quality_oahu_map",
-        "sensor.hawaii_ocean_water_quality_oahu"
-      ]
+      "onboarded_version": "2026.4.0",
+      "onboarded_date": "2026-04-03T19:45:39.708Z"
     }
   }
 }
