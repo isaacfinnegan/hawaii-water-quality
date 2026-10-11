@@ -1,4 +1,4 @@
-console.log("Hawaii Water Quality Card: v2.2.6 Loading...");
+console.log("Hawaii Water Quality Card: v2.2.7 Loading...");
 
 const ISLAND_DEFAULTS = {
     "oahu": { default_lat: 21.4389, default_lon: -158.0001, default_zoom: 10 },
@@ -45,7 +45,8 @@ class HawaiiWaterQualityCardEditor extends HTMLElement {
       { name: "default_lon", label: "Center Lon", selector: { number: { mode: "box", step: 0.00001 } } },
       { name: "default_zoom", label: "Zoom", selector: { number: { mode: "box", min: 1, max: 20 } } },
       { name: "offset_lat", label: "Offset Lat", selector: { number: { mode: "box", step: 0.00001 } } },
-      { name: "offset_lon", label: "Offset Lon", selector: { number: { mode: "box", step: 0.00001 } } }
+      { name: "offset_lon", label: "Offset Lon", selector: { number: { mode: "box", step: 0.00001 } } },
+      { name: "carto_api_key", label: "CARTO API Key", selector: { text: {} } }
     ];
 
     this._form = document.createElement("ha-form");
@@ -171,7 +172,8 @@ class HawaiiWaterQualityCard extends HTMLElement {
   _createMapInstance() {
     if (!this.content || this.map) return;
     this.map = L.map(this.content).setView([this.config.default_lat, this.config.default_lon], this.config.default_zoom);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png').addTo(this.map);
+    const cartoKey = (this.config.carto_api_key || '').trim();
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png' + (cartoKey ? '?key=' + encodeURIComponent(cartoKey) : '')).addTo(this.map);
     new ResizeObserver(() => this.map?.invalidateSize()).observe(this.content);
     this._updateMap(true);
   }
